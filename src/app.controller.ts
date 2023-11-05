@@ -5,7 +5,42 @@ import { AppService } from './app.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  users: any;
+  
+  constructor(private readonly appService: AppService) {
+    this.users = [
+      {
+        id: 1,
+        name: 'Luz',
+        surname: 'Lloveras',
+        age: 32,
+      },
+      {
+        id: 2,
+        name: 'Ema',
+        surname: 'Lloveras',
+        age: 32,
+      },
+      {
+        id: 3,
+        name: 'Tomas',
+        surname: 'Lloveras',
+        age: 19,
+      },
+      {
+        id: 4,
+        name: 'Tigra',
+        surname: 'Lloveras',
+        age: 22,
+      },
+      {
+        id: 5,
+        name: 'Simon',
+        surname: 'Lloveras',
+        age: 13,
+      },
+    ];
+  }
 
   @Get('test')
   getHello(): string {
@@ -19,6 +54,7 @@ export class AppController {
     return items[page - 1];
   }
 
+  /*
   @Get('/api/items/:id')
   getParam(@Param() params): any {
     const items = [
@@ -30,5 +66,26 @@ export class AppController {
     const item = items.find((item) => item.id == searchId);
     return item;
   }
+  */
+  @Get('/api/users')
+  getUsers(): any {
+    return this.users;
+  }
+
+  @Get('/api/users/qty')
+  getUsersQty(): any {
+    return this.users.lenght;
+  }
+ 
+
+  @Get('/api/users/:id')
+  getUsersById(@Param('id') id): any {
+    console.log(this.users.find((user) => this.users.id === Number(id)));
+    return this.users.find((user) => this.users.id === Number(id));
+  }
   
+
+
 }
+
+
